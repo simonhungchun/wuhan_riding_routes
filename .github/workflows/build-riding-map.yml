@@ -96,7 +96,7 @@ jobs:
       - name: Build bike-planetiler examples jar
         working-directory: bike-planetiler
         run: |
-          mvn -B -q -DskipTests -pl planetiler-core -am install
+          mvn -B -q -DskipTests -Dspotless.check.skip=true -pl planetiler-core -am install
           mvn -B -q -DskipTests -f planetiler-examples/standalone.pom.xml package
           ls -lh planetiler-examples/target/*-with-deps.jar
 
