@@ -66,6 +66,12 @@ jobs:
           wget -q https://github.com/onthegomap/planetiler/releases/download/v0.6.0/planetiler.jar -O planetiler.jar
           ls -lh planetiler.jar
 
+      - name: Cache planetiler sources
+        uses: actions/cache@v4
+        with:
+          path: data/sources
+          key: planetiler-sources-v1
+
       - name: Build base map MBTiles (OpenMapTiles default profile)
         env:
           MINZOOM: ${{ github.event.inputs.minzoom }}
@@ -73,6 +79,7 @@ jobs:
         run: |
           java -Xmx6g -jar planetiler.jar \
             --osm_path=wuhan.osm.pbf \
+            --download \
             --output=wuhan-base.mbtiles \
             --minzoom="$MINZOOM" \
             --maxzoom="$MAXZOOM" \
