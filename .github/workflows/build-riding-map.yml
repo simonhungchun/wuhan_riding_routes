@@ -96,7 +96,8 @@ jobs:
       - name: Build bike-planetiler examples jar
         working-directory: bike-planetiler
         run: |
-          mvn -B -q -Dmaven.test.skip=true -pl planetiler-examples -am package
+          mvn -B -q -DskipTests -pl planetiler-core -am install
+          mvn -B -q -DskipTests -f planetiler-examples/standalone.pom.xml package
           ls -lh planetiler-examples/target/*-with-deps.jar
 
       - name: Build surface overlay MBTiles (asphalt / gravel)
